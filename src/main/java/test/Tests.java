@@ -27,6 +27,7 @@ public class Tests {
     public void onlyAlphaCharsShouldRemain() {
         String reggyString = "fef4356^':.,";
         Assert.assertEquals("fef", runner.regex(reggyString).get(0));
+        System.out.println(runner.regex(reggyString).get(0));
     }
 
     @Test
