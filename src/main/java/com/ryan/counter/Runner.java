@@ -19,7 +19,8 @@ public class Runner {
 	private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0";
 
 	// TODO Base in a base url, much more flexible, also a more likely scenario that we'll want to hit different urls
-	public void runner(String baseUrl) {
+	// TODO Made it reutrn the word occurences
+	public Map<String, Integer> runner(String baseUrl) {
 
 		JsoupProperties jsoupProperties = new JsoupProperties(baseUrl, USER_AGENT);
 
@@ -35,7 +36,8 @@ public class Runner {
 		String docToString = doc.toString();
 		// TODO No need for brackets around that method call,List is returned as opposed to ArrayList
 		List<String> wordsOnPageList = regex(docToString);
-		hashCounter(wordsOnPageList);
+		// TODO the runner ought to return the output of words
+		return hashCounter(wordsOnPageList);
 
 	}
 
