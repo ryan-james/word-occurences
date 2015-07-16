@@ -5,24 +5,29 @@ package main;
  */
 public class JsoupProperties {
 
-    private static String scrapeUrl;
-    private static String ua;
+    private final String scrapeUrl;
+    private final String userAgent;
 
+    public JsoupProperties(String scrapeUrl, String userAgent) {
+        this.scrapeUrl = scrapeUrl;
+        this.userAgent = userAgent;
+    }
 
-    public static String getScrapeUrl() {
+    public String getScrapeUrl() {
         return scrapeUrl;
     }
 
-    public static void setScrapeUrl(String scrapeUrl) {
-        JsoupProperties.scrapeUrl = scrapeUrl;
+    public String getUserAgent() {
+        return userAgent;
     }
 
-    public static String getUa() {
-        return ua;
-    }
 
-    public static void setUa(String ua) {
-        JsoupProperties.ua = ua;
-    }
+//    public static void setScrapeUrl(String scrapeUrl) {
+//        JsoupProperties.scrapeUrl = scrapeUrl;
+//    }
+//
+//    public static void setUserAgent(String userAgent) {
+//        JsoupProperties.userAgent = userAgent;
+//    }
 
 }
