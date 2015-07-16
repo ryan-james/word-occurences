@@ -18,11 +18,13 @@ public class Tests {
         urlWordScraper = new UrlWordScraper();
     }
 
-    @Test
-    public void runFullTestToFindASpecificWordFromPage() {
-        Map<String, Integer> uniqueWordsFromUrl = urlWordScraper.runner();
-        assertEquals(60, uniqueWordsFromUrl.get("Howard").intValue());
-    }
+   @Test
+   public void tester(){
+       urlWordScraper.runner();
+   }
+
+
+
 
     @Test
     public void shouldOnlyContainAlphaCharsAfterRegex() {
@@ -39,6 +41,12 @@ public class Tests {
 
         Map<String, Integer> wordOccurences = UrlWordScraper.hashCounter(testWords);
         assertEquals(2, wordOccurences.get("aaa").intValue());
+    }
+
+    @Test
+    public void runFullTestToFindASpecificWordFromPage() {
+        Map<String, Integer> uniqueWordsFromUrl = urlWordScraper.runner();
+        assertEquals(27, uniqueWordsFromUrl.get("John").intValue());
     }
 
 }
