@@ -18,14 +18,6 @@ public class Tests {
         urlWordScraper = new UrlWordScraper();
     }
 
-   @Test
-   public void tester(){
-       urlWordScraper.runner();
-   }
-
-
-
-
     @Test
     public void shouldOnlyContainAlphaCharsAfterRegex() {
         String htmlInput = "fef4356^':.,";
@@ -46,7 +38,7 @@ public class Tests {
     @Test
     public void runFullTestToFindASpecificWordFromPage() {
         Map<String, Integer> uniqueWordsFromUrl = urlWordScraper.runner();
-        assertEquals(27, uniqueWordsFromUrl.get("John").intValue());
+        assertEquals(60, uniqueWordsFromUrl.get("howard").intValue());
     }
 
 }

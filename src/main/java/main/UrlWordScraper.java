@@ -16,7 +16,6 @@ public class UrlWordScraper {
     public Map<String, Integer> runner() {
 
         JsoupProperties jsoupProperties = new JsoupProperties(scrapeUrl, USER_AGENT);
-
         Document doc;
 
         try {
@@ -26,38 +25,35 @@ public class UrlWordScraper {
             throw new RuntimeException("Error using scrapeUrl " + jsoupProperties.getScrapeUrl() + ioe);
         }
 
-        String docToString = doc.toString();
-//        System.out.println(docToString);
+        String docToString = doc.body().toString();
         List<String> wordsOnPageList = (regexToProduceWordsOnly(docToString));
+        //made words lowercase for better matching
+        List<String> wordsToLowerCase = new ArrayList<String>();
+        for(String st : wordsOnPageList) {
+            wordsToLowerCase.add(st.toLowerCase());
+        }
 
-        return hashCounter(wordsOnPageList);
+        return hashCounter(wordsToLowerCase);
     }
 
     public List<String> regexToProduceWordsOnly(String fullPage) {
-//        //remove script tags and content between
-//        String removePageCode = fullPage.replaceAll("<script[^>]*>([^<]*)<\\/script>", "");
-//        //remove style tags and content between
-//        removePageCode = removePageCode.replaceAll("<style[^>]*>([^<]*)<\\/style>", "");
-//        removePageCode = removePageCode.replaceAll("<[^>]*>", "");
-//        //remove all non-alphanumeric chars
-//        removePageCode = removePageCode.replaceAll("(\\.)|(:)|(,)|(\\[)|(\\])|(\\-)|(\\^)|(&)|(;)|(=)|(\\?)|(/)|(\\()|(\\))|(\")|(_)", " ");
-//        //remove all numbers
-//        removePageCode = removePageCode.replaceAll("\\d+.*", "");
-//        removePageCode = removePageCode.replaceAll(" nbsp", "");
 
-
-        //remove everything in between head tags
-        String removePageCode = fullPage.replaceAll("<head[^>]*>([^<]*)<\\/head>", "");
-        //remove everything in between script tags
-        removePageCode = removePageCode.replaceAll("<script[^>]*>([^<]*)<\\/script>", "");
-        //remove all tags and their contents
-        removePageCode = removePageCode.replaceAll("<[^>]*>", "");
-        //remove all gash characters
+        //remove all new lines
+        String  removePageCode = fullPage.replaceAll("\n","");
+        //remove comments and content between
+        removePageCode = removePageCode.replaceAll("<!--.*?-->","");
+        //remove script tags and content
+        removePageCode = removePageCode.replaceAll("<script>.*?</script>","");
+        //remove this particular div class and content
+        removePageCode = removePageCode.replaceAll("<div class=\"printfooter\">.*?</div>","");
+        //remove all tags
+        removePageCode = removePageCode.replaceAll("<.*?>","");
+        //remove all chars apart from alphas
         removePageCode = removePageCode.replaceAll("[^a-zA-Z]", " ");
 
         //create array of all words by splitting on space
         String[] wordsOnPage = removePageCode.split("\\s+");
-        //convert array to ArrayList
+        //convert array to ArrayList and return
         return Arrays.asList(wordsOnPage);
 
 
